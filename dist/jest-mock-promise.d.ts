@@ -42,6 +42,7 @@ declare class JestMockPromise<T = any> {
     /** current state of the promise */
     protected state: PromiseState;
     constructor(callbackFn?: (x?: any, y?: any) => any);
+    get [Symbol.toStringTag](): string;
     /**
      * Resolves promises at a given level
      * @param currLevel list of promises which need to be resolved at this level

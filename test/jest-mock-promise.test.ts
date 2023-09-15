@@ -8,7 +8,7 @@ test('it should support pre-resolved promise', async () => {
         .then(handler);
 
     await promise;
-    
+
     expect(handler.mock.calls.length).toEqual(1);
     expect(handler).toHaveBeenCalledWith("abcd");
 });
@@ -21,7 +21,7 @@ test('it should support pre-rejected promise', async () => {
         .catch(handler);
 
     await promise;
-    
+
     expect(handler.mock.calls.length).toEqual(1);
     expect(handler).toHaveBeenCalledWith("some error");
 });
@@ -56,7 +56,7 @@ test('`finally` must be called after if a promise is rejected', () => {
     promise.then(() => {})
         .catch(catchHandler)
         .finally(finallyHandler)
-    
+
     promise.reject('some error data');
 
     expect(catchHandler.mock.calls.length).toEqual(1);
@@ -215,7 +215,7 @@ test('if an error is thrown inside `catch` the closest `catch` should be called'
 
 test('if promise is pre-resolved then and finally must be called as soon as they are registered', () => {
     const promise = new JestMockPromise();
-    
+
     promise.resolve('mock data');
 
     const finallyHandler = jest.fn();
@@ -227,14 +227,14 @@ test('if promise is pre-resolved then and finally must be called as soon as they
 
     expect(finallyHandler.mock.calls.length).toEqual(1);
     expect(finallyHandler.mock.calls).toEqual([[]]);
-    
+
     expect(thenHandler.mock.calls.length).toEqual(1);
     expect(thenHandler.mock.calls).toEqual([['mock data']]);
 });
 
 test('if promise is pre-rejected `catch` and `finally` must be called as soon as they are registered', () => {
     const promise = new JestMockPromise();
-    
+
     promise.reject('error data');
 
     const finallyHandler = jest.fn();
@@ -251,7 +251,7 @@ test('if promise is pre-rejected `catch` and `finally` must be called as soon as
 
 test('return value from one `then` should be passed to the next one in chain', () => {
     const promise = new JestMockPromise<string>();
-    
+
     const thenHandler2 = jest.fn();
 
     promise
@@ -266,7 +266,7 @@ test('return value from one `then` should be passed to the next one in chain', (
 
 test('return value from `catch` should be ignored (NOT passed to the next `then` in chain)', () => {
     const promise = new JestMockPromise();
-    
+
     const thenHandler2 = jest.fn();
 
     promise
@@ -281,16 +281,16 @@ test('return value from `catch` should be ignored (NOT passed to the next `then`
 
 test('if promise is pre-resolved and `then` is called with a non-function as onFulfilled callback, onFulfilled should be replaced by identity function', () => {
     const promise = new JestMockPromise<string>();
-  
+
     promise.resolve('mock data');
-  
+
     const thenHandler = jest.fn();
     promise.then(null).then(thenHandler);
-  
+
     expect(thenHandler.mock.calls.length).toEqual(1);
     expect(thenHandler.mock.calls).toEqual([['mock data']]);
   });
-  
+
 test('if `then` is called with a non-function as onFulfilled callback, onFulfilled should be replaced by identity function', () => {
     const promise = new JestMockPromise<string>();
 
